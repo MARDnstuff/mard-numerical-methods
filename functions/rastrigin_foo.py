@@ -11,7 +11,8 @@ class RastriginFunction(Function):
         """
         Constructor
         """
-        pass
+        domain = (-5.12, 5.12)
+        super().__init__(domain)
 
     def f(self, x: np.array) -> float:
         """

@@ -10,7 +10,9 @@ class DixonPriceFunction(Function):
         """
         Constructor
         """
-        pass
+        domain = (-10, 10)
+        super().__init__(domain)
+        
 
     def f(self, x: np.array) -> float:
         """

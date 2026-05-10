@@ -11,7 +11,8 @@ class EasomFunction(Function):
         """
         Constructor
         """
-        pass
+        domain = (-100, 100)
+        super().__init__(domain)
 
     def f(self, x: np.array) -> float:
         """

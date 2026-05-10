@@ -8,6 +8,13 @@ class Function(ABC):
     Link: https://www.sfu.ca/~ssurjano/optimization.html
     """
 
+    def __init__(self, domain: tuple[float, float]) -> None:
+        """
+        Constructor
+        
+        """
+        self.domain = domain
+
     @abstractmethod
     def f(self, x: np.array) -> float:
         """

@@ -11,7 +11,9 @@ class McCormickFunction(Function):
         """
         Constructor
         """
-        pass
+        domain = (-1.5, 4)
+        super().__init__(domain)
+        self.domain_x2 = (-3, 4)
 
     def f(self, x: np.array) -> float:
         """

@@ -10,11 +10,15 @@ from functions.mcCormick_foo import McCormickFunction
 from functions.dixon_price_foo import DixonPriceFunction
 from functions.easom_foo import EasomFunction
 from functions.rastrigin_foo import RastriginFunction
+import logging
+
+# Logging
+setUpLogging()
+logger = logging.getLogger(__name__)
 
 
 if __name__ == "__main__":
-    setUpLogging()
-
+    
     # Sphere
     # Dominio típico: [-5.12, 5.12]
     sphere = SphereFunction()

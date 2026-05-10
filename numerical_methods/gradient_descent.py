@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# TODO: Implementar los metodos faltantes
-# TODO: Implmentar funciones faltantes
+# TODO: Agregar a cada función su dominio correspondiente
+# TODO: Agregar el conteo del llamado de la función 
+# TODO: Generar una matriz para comparar
 def _busqueda_wolfe(f: callable, Df: callable, x: np.array, d: np.array, c1: float = 1e-4, c2: float = 0.9, alph_max: float = 1.0, max_iter: int = 100) -> float:
     """
     Búsqueda de línea que satisface las condiciones fuertes de Wolfe.
