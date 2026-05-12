@@ -14,6 +14,9 @@ class Function(ABC):
         
         """
         self.domain = domain
+        self.f_count_invok: int = 0
+        self.Df_count_invok: int = 0
+        self.H_count_invok: int = 0
 
     @abstractmethod
     def f(self, x: np.array) -> float:

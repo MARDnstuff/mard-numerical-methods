@@ -35,6 +35,7 @@ if __name__ == "__main__":
     # Dominio típico: [-100, 100]
     easom = EasomFunction()
     x0_easom = np.array([12.45, 8.73])
+    print(np.array([[1,2], [2, 2]]))
 
     # Dixon-Price
     # Dominio típico: [-10, 10]

@@ -11,7 +11,7 @@ class EasomFunction(Function):
         """
         Constructor
         """
-        domain = (-100, 100)
+        domain = (-2*pi, 2*pi)
         super().__init__(domain)
 
     def f(self, x: np.array) -> float:
@@ -23,7 +23,7 @@ class EasomFunction(Function):
         """
         if len(x) != 2:
             raise ValueError("Easom solo admite 2 dimensiones")
-
+        self.f_count_invok += 1
         return -1*cos(x[0])*cos(x[1])*exp(-1*(x[0] - pi)**2 - (x[1] - pi)**2)
 
     def Df(self, x: np.array) -> np.array:
@@ -42,11 +42,11 @@ class EasomFunction(Function):
         
         tx1 = cos(x[1])*exp(-1*(x[0] - pi)**2 - (x[1] - pi)**2)*(sin(x[0]) + 2*(x[0] - pi)*cos(x[0]))
         tx2 = cos(x[0])*exp(-1*(x[0] - pi)**2 - (x[1] - pi)**2)*(sin(x[1]) + 2*(x[1] - pi)*cos(x[1]))
-
+        self.Df_count_invok += 1
         return np.array([tx1, tx2])
     
 
-    def H(x: np.array) -> np.array:
+    def H(self, x: np.array) -> np.array:
         """
         Matriz Hessiana
 
@@ -93,6 +93,7 @@ class EasomFunction(Function):
             )
         )
 
+        self.H_count_invok += 1
         return np.array([
             [h11, h12],
             [h12, h22]

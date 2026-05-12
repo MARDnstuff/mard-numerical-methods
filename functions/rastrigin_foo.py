@@ -25,7 +25,7 @@ class RastriginFunction(Function):
         res = 10*d
         for i in range(0, d):
             res += 2*(x[i]**2) - 10*cos(2*pi*x[i])
-
+        self.f_count_invok += 1
         return res
     
 
@@ -45,7 +45,7 @@ class RastriginFunction(Function):
         for xi in x:
             term = 2*xi + 20*pi*sin(2*pi*xi) 
             res.append(term)
-
+        self.Df_count_invok += 1
         return np.array(res)
 
     def H(self, x: np.array) -> np.array:
@@ -59,5 +59,5 @@ class RastriginFunction(Function):
             2
             + 40 * (np.pi**2) * np.cos(2 * np.pi * x)
         )
-
+        self.H_count_invok += 1
         return np.diag(diag)

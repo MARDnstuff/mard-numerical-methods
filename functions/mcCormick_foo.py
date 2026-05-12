@@ -24,7 +24,7 @@ class McCormickFunction(Function):
         """
         if len(x) != 2:
             raise ValueError("McCormick solo admite 2 dimensiones")
-
+        self.f_count_invok += 1
         return sin(x[0] + x[1]) + (x[0] - x[1])**2 - 1.5*x[0] + 2.5*x[1] + 1
 
     def Df(self, x: np.array) -> np.array:
@@ -41,6 +41,7 @@ class McCormickFunction(Function):
         if len(x) != 2:
             raise ValueError("McCormick solo admite 2 dimensiones")
         res = [cos(x[0] + x[1]) + 2*(x[0] - x[1]) - 1.5, cos(x[0] + x[1]) + 2*(x[0] - x[1]) + 2.5]
+        self.Df_count_invok += 1
         return np.array(res)
     
     def H(self, x: np.array) -> np.array:
@@ -57,5 +58,6 @@ class McCormickFunction(Function):
         h = np.array([
             [s + 2, s - 2],
             [s - 2, s + 2]
-        ]) 
+        ])
+        self.H_count_invok += 1
         return h

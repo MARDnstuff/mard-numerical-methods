@@ -1,4 +1,7 @@
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 def NewtonMethod(G: callable, H: callable, x0: np.array, tol:float = 10**(-4), max_iter: int =20) -> np.array:
     """
@@ -35,20 +38,24 @@ def NewtonMethod(G: callable, H: callable, x0: np.array, tol:float = 10**(-4), m
     - Puede divergir si el punto inicial está lejos del óptimo o si la Hessiana no es definida positiva.
 
     """
+    try:
+        x = x0
+        X = [x0.copy()]
 
-    x = x0
-    X = [x0.copy()]
+        for _ in range(max_iter):
+            xa = x
 
-    for _ in range(max_iter):
-        xa = x
+            x = x - np.dot(
+                np.linalg.inv(H(x)),
+                G(x)
+            )
+            X.append(x.copy())
 
-        x = x - np.dot(
-            np.linalg.inv(H(x)),
-            G(x)
-        )
-        X.append(x.copy())
+            if np.linalg.norm(x - xa) < tol:
+                break
 
-        if np.linalg.norm(x - xa) < tol:
-            break
+    except Exception as e:
+        logger.error("Valores provacan un Matrix Singular")
+        return np.full_like(x0, np.nan), [np.full_like(x0, np.nan)]
 
     return x, np.array(X)

@@ -17,6 +17,7 @@ class SphereFunction(Function):
         :param x: vector de variables [x0, x1]
         :return: Valor escalar de la función evaluada en x.
         """
+        self.f_count_invok += 1
         return np.sum(x**2, axis=0)
 
     def Df(self, x: np.array) -> np.array:
@@ -34,6 +35,7 @@ class SphereFunction(Function):
         for elem in x:
             # sumatoria de 2xi, donde i varia deste 0 hasta el tamaño de x
             res.append(2*elem)
+        self.Df_count_invok += 1
         return np.array(res)
 
     def H(self, x: np.array) -> np.array:
@@ -43,4 +45,5 @@ class SphereFunction(Function):
         :param x: Punto en el que se evalúa el gradiante [x0, x1, ...]
         :return: Matrix evaluada en x.
         """
+        self.H_count_invok += 1
         return 2*np.eye(len(x))

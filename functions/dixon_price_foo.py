@@ -26,6 +26,7 @@ class DixonPriceFunction(Function):
 
         for i in range(2, len(x) + 1):
             res += i*(2*(x[i - 1])**2 - x[i - 2])**2
+        self.f_count_invok += 1
         return res
 
     def Df(self, x: np.array) -> np.array:
@@ -51,10 +52,10 @@ class DixonPriceFunction(Function):
             res.append(term)
         
         res.append(8*n*x[n - 1]*(2*(x[n - 1]**2) - x[n - 2]))
-
+        self.Df_count_invok += 1
         return np.array(res)
     
-    def H(x: np.array) -> np.array:
+    def H(self, x: np.array) -> np.array:
         """
         Matriz Hessiana
         
@@ -100,5 +101,5 @@ class DixonPriceFunction(Function):
 
             H[n - 1, n - 2] = cross
             H[n - 2, n - 1] = cross
-
+        self.H_count_invok += 1
         return H
