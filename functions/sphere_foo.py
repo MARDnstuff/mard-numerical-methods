@@ -8,6 +8,8 @@ class SphereFunction(Function):
         Constructor
         """
         domain = (-5.12, 5.12)
+        self.global_min = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        self.tol = 1e-6
         super().__init__(domain)
 
     def f(self, x: np.array) -> float:

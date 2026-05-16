@@ -69,6 +69,8 @@ def crear_tabla_comparativa(resultados_por_metodo: dict, nombre_funcion: str) ->
                 "Punto":    i + 1,
                 "Método":   metodo,
                 "x_optimo": np.round(datos["x_optimo"], 4),
+                "llego_optimo": datos["llego_optimo"],
+                "dist": datos["dist"],
                 "n_iter":   datos["n_iter"],
                 "f_invok":  datos["f_invok"],
                 "Df_invok": datos["Df_invok"],
@@ -79,3 +81,47 @@ def crear_tabla_comparativa(resultados_por_metodo: dict, nombre_funcion: str) ->
 
     print(f"\n📊 Tabla comparativa — {nombre_funcion}")
     return df
+
+def resumen_tabla(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Genera un resumen estadístico por método a partir de la tabla comparativa.
+
+    Muestra para cada método:
+    - Cuántas veces llegó al óptimo.
+    - Mejor aproximación (menor distancia al óptimo entre los que llegaron).
+    - Promedio de invocaciones de f, Df y H.
+
+    :param df: DataFrame generado por crear_tabla_comparativa.
+    :return:   DataFrame con el resumen por método.
+    """
+    filas = []
+
+    for metodo, grupo in df.groupby("Método"):
+
+        # Cuántas veces llegó al óptimo
+        n_llego = grupo["llego_optimo"].sum()
+
+        # Mejor aproximación: menor distancia entre los que llegaron al óptimo
+        llego = grupo[grupo["llego_optimo"] == True]
+        if not llego.empty:
+            mejor_idx  = llego["dist"].idxmin()
+            mejor_dist = llego.loc[mejor_idx, "dist"]
+            mejor_x    = llego.loc[mejor_idx, "x_optimo"]
+        else:
+            mejor_dist = None
+            mejor_x    = None
+
+        filas.append({
+            "Método"          : metodo,
+            "Llegó al óptimo" : f"{n_llego}/{len(grupo)}",
+            "Mejor dist"      : round(mejor_dist, 6) if mejor_dist is not None else "—",
+            "Mejor x_optimo"  : mejor_x,
+            "Avg f_invok"     : round(grupo["f_invok"].mean(),  2),
+            "Avg Df_invok"    : round(grupo["Df_invok"].mean(), 2),
+            "Avg H_invok"     : round(grupo["H_invok"].mean(),  2),
+        })
+
+    resumen = pd.DataFrame(filas).reset_index(drop=True)
+
+    print("📋 Resumen por método")
+    return resumen

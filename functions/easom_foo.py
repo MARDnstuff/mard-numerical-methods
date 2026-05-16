@@ -12,6 +12,8 @@ class EasomFunction(Function):
         Constructor
         """
         domain = (-2*pi, 2*pi)
+        self.global_min = (pi, pi)
+        self.tol = 1e-3
         super().__init__(domain)
 
     def f(self, x: np.array) -> float:

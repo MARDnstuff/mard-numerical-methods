@@ -12,8 +12,10 @@ class McCormickFunction(Function):
         Constructor
         """
         domain = (-1.5, 4)
+        self.global_min = (-0.54719, -1.54719)
         super().__init__(domain)
         self.domain_x2 = (-3, 4)
+        self.tol = 1e-4
 
     def f(self, x: np.array) -> float:
         """

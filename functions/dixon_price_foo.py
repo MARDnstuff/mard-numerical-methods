@@ -11,6 +11,13 @@ class DixonPriceFunction(Function):
         Constructor
         """
         domain = (-10, 10)
+        
+        def evalExpression(i: int) -> float:
+            expression = 2**(-((2**i) - 2)/(2**i))
+            return expression
+        
+        self.global_min = (evalExpression(1), evalExpression(2), evalExpression(3), evalExpression(4))
+        self.tol = 1e-4
         super().__init__(domain)
         
 
